@@ -6,6 +6,7 @@ enum LocalAuthServerError: LocalizedError {
     case timeout
     case cancelled
     case invalidCallback
+    case stateMismatch
 
     var errorDescription: String? {
         switch self {
@@ -17,6 +18,8 @@ enum LocalAuthServerError: LocalizedError {
             return "OAuth flow was cancelled"
         case .invalidCallback:
             return "Invalid OAuth callback received"
+        case .stateMismatch:
+            return "OAuth state mismatch — possible CSRF attack"
         }
     }
 }
@@ -25,10 +28,13 @@ enum LocalAuthServerError: LocalizedError {
 actor LocalAuthServer {
     private var listener: NWListener?
     private let port: UInt16
+    private let expectedState: String?
     private var continuation: CheckedContinuation<String, Error>?
+    private var timeoutTask: Task<Void, Never>?
 
-    init(port: UInt16 = Constants.OAuth.callbackPort) {
+    init(port: UInt16 = Constants.OAuth.callbackPort, expectedState: String? = nil) {
         self.port = port
+        self.expectedState = expectedState
     }
 
     /// Start listening and wait for the OAuth callback code
@@ -53,10 +59,11 @@ actor LocalAuthServer {
 
                 listener.start(queue: .global(qos: .userInitiated))
 
-                // Timeout
-                Task {
-                    try await Task.sleep(nanoseconds: UInt64(timeout * 1_000_000_000))
-                    await self.fail(with: LocalAuthServerError.timeout)
+                // Timeout (cancel on success/failure)
+                self.timeoutTask = Task { [weak self] in
+                    try? await Task.sleep(nanoseconds: UInt64(timeout * 1_000_000_000))
+                    guard !Task.isCancelled else { return }
+                    await self?.fail(with: LocalAuthServerError.timeout)
                 }
             } catch {
                 continuation.resume(throwing: LocalAuthServerError.failedToStart(error))
@@ -66,6 +73,8 @@ actor LocalAuthServer {
     }
 
     func stop() {
+        timeoutTask?.cancel()
+        timeoutTask = nil
         listener?.cancel()
         listener = nil
     }
@@ -126,6 +135,20 @@ actor LocalAuthServer {
             return
         }
 
+        // CSRF: Validate state parameter matches what we sent
+        if let expectedState = expectedState {
+            let returnedState = components.queryItems?.first(where: { $0.name == "state" })?.value
+            guard returnedState == expectedState else {
+                sendResponse(
+                    connection: connection,
+                    statusCode: 400,
+                    body: authErrorHTML("State mismatch — please try again")
+                )
+                fail(with: LocalAuthServerError.stateMismatch)
+                return
+            }
+        }
+
         sendResponse(
             connection: connection,
             statusCode: 200,
@@ -139,7 +162,7 @@ actor LocalAuthServer {
         let statusText = statusCode == 200 ? "OK" : "Error"
         let response = """
         HTTP/1.1 \(statusCode) \(statusText)\r
-        Content-Type: text/html\r
+        Content-Type: text/html; charset=utf-8\r
         Content-Length: \(body.utf8.count)\r
         Connection: close\r
         \r
@@ -171,21 +194,30 @@ actor LocalAuthServer {
         <html>
         <head><title>WHOOP Menubar</title></head>
         <body style="font-family: -apple-system, system-ui; text-align: center; padding: 60px;">
-            <h1>✓ Signed in successfully</h1>
+            <h1>Signed in successfully</h1>
             <p>You can close this tab and return to the app.</p>
         </body>
         </html>
         """
     }
 
+    private func htmlEscape(_ string: String) -> String {
+        string
+            .replacingOccurrences(of: "&", with: "&amp;")
+            .replacingOccurrences(of: "<", with: "&lt;")
+            .replacingOccurrences(of: ">", with: "&gt;")
+            .replacingOccurrences(of: "\"", with: "&quot;")
+    }
+
     private func authErrorHTML(_ message: String) -> String {
-        """
+        let safeMessage = htmlEscape(message)
+        return """
         <!DOCTYPE html>
         <html>
-        <head><title>WHOOP Menubar</title></head>
+        <head><title>Recovery Hub</title></head>
         <body style="font-family: -apple-system, system-ui; text-align: center; padding: 60px;">
             <h1>Authentication Failed</h1>
-            <p>\(message)</p>
+            <p>\(safeMessage)</p>
             <p>Please close this tab and try again.</p>
         </body>
         </html>

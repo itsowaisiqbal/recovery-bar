@@ -9,6 +9,10 @@ final class AppState: ObservableObject {
     @Published private(set) var recovery: RecoveryRecord?
     @Published private(set) var cycle: CycleRecord?
     @Published private(set) var sleep: SleepRecord?
+    @Published private(set) var naps: [SleepRecord] = []
+    @Published private(set) var workout: WorkoutRecord?
+    @Published private(set) var dayWorkouts: [WorkoutRecord] = []
+    @Published private(set) var bodyMeasurement: BodyMeasurement?
     @Published private(set) var profile: UserProfile?
     @Published private(set) var lastUpdated: Date?
     @Published private(set) var isLoading = false
@@ -71,20 +75,40 @@ final class AppState: ObservableObject {
         isLoading = true
         error = nil
 
+        // Fetch the latest/current cycle (last 2 days to catch ongoing cycles)
+        let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: Date())!
+
         do {
-            async let fetchedRecovery = apiClient.fetchLatestRecovery()
-            async let fetchedCycle = apiClient.fetchLatestCycle()
-            async let fetchedSleep = apiClient.fetchLatestSleep()
+            // Fetch latest cycle and recovery
+            let now = Date()
+            async let fetchedCycle = apiClient.fetchCycle(start: twoDaysAgo, end: now)
+            async let fetchedRecovery = apiClient.fetchRecovery(start: twoDaysAgo, end: now)
 
-            let (newRecovery, newCycle, newSleep) = try await (
-                fetchedRecovery,
-                fetchedCycle,
-                fetchedSleep
-            )
-
-            self.recovery = newRecovery
+            let (newCycle, newRecovery) = try await (fetchedCycle, fetchedRecovery)
             self.cycle = newCycle
-            self.sleep = newSleep
+            self.recovery = newRecovery
+
+            // Use the cycle's boundaries to fetch activities for the current cycle
+            let cycleStart = newCycle?.start ?? twoDaysAgo
+            let cycleEnd = newCycle?.end ?? Date()
+
+            async let fetchedSleeps = apiClient.fetchSleeps(start: cycleStart, end: cycleEnd)
+            async let fetchedWorkouts = apiClient.fetchWorkouts(start: cycleStart, end: cycleEnd)
+
+            let (newSleeps, newWorkouts) = try await (fetchedSleeps, fetchedWorkouts)
+
+            // Sort chronologically (earliest first)
+            let sortedSleeps = newSleeps.sorted { $0.start < $1.start }
+            let sortedWorkouts = newWorkouts.sorted { $0.start < $1.start }
+
+            // Separate main sleep from naps
+            self.sleep = sortedSleeps.first { !$0.nap }
+            self.naps = sortedSleeps.filter { $0.nap }
+
+            // Store all workouts
+            self.dayWorkouts = sortedWorkouts
+            self.workout = sortedWorkouts.first
+
             self.lastUpdated = Date()
             self.error = nil
         } catch let apiError as WhoopAPIError {
@@ -100,10 +124,13 @@ final class AppState: ObservableObject {
         guard let apiClient = apiClient else { return }
 
         do {
-            self.profile = try await apiClient.fetchProfile()
+            async let profileResult = apiClient.fetchProfile()
+            async let bodyResult = try? apiClient.fetchBodyMeasurement()
+
+            self.profile = try await profileResult
+            self.bodyMeasurement = await bodyResult
         } catch {
             // Profile fetch failure is non-critical
-            print("Failed to fetch profile: \(error)")
         }
     }
 
@@ -112,6 +139,10 @@ final class AppState: ObservableObject {
         recovery = nil
         cycle = nil
         sleep = nil
+        naps = []
+        workout = nil
+        dayWorkouts = []
+        bodyMeasurement = nil
         profile = nil
         lastUpdated = nil
         error = nil

@@ -1,4 +1,7 @@
 import Foundation
+import os
+
+private let logger = Logger(subsystem: "com.itsowaisiqbal.whoop-menubar", category: "API")
 
 enum WhoopAPIError: LocalizedError {
     case unauthorized
@@ -20,8 +23,8 @@ enum WhoopAPIError: LocalizedError {
             return "API error (\(code)): \(message)"
         case .networkError(let error):
             return "Network error: \(error.localizedDescription)"
-        case .decodingError(let error):
-            return "Failed to parse WHOOP data: \(error.localizedDescription)"
+        case .decodingError:
+            return "Failed to parse WHOOP data."
         }
     }
 }
@@ -41,26 +44,40 @@ actor WhoopAPIClient {
         return try await get(endpoint: .profile)
     }
 
-    func fetchLatestRecovery() async throws -> RecoveryRecord? {
+    func fetchBodyMeasurement() async throws -> BodyMeasurement {
+        // Body measurement only available via v1 — v2 profile doesn't include it
+        let url = URL(string: "https://api.prod.whoop.com/developer/v1/user/measurement/body")!
+        return try await getURL(url)
+    }
+
+    // MARK: - Date-Range Fetches
+
+    func fetchRecovery(start: Date, end: Date) async throws -> RecoveryRecord? {
         let collection: RecoveryCollection = try await get(
-            endpoint: .recovery(start: oneDayAgo, end: nil, limit: 1)
+            endpoint: .recovery(start: start, end: end, limit: 1)
         )
         return collection.records.first
     }
 
-    func fetchLatestCycle() async throws -> CycleRecord? {
+    func fetchCycle(start: Date, end: Date) async throws -> CycleRecord? {
         let collection: CycleCollection = try await get(
-            endpoint: .cycles(start: oneDayAgo, end: nil, limit: 1)
+            endpoint: .cycles(start: start, end: end, limit: 1)
         )
         return collection.records.first
     }
 
-    func fetchLatestSleep() async throws -> SleepRecord? {
+    func fetchSleeps(start: Date, end: Date) async throws -> [SleepRecord] {
         let collection: SleepCollection = try await get(
-            endpoint: .sleep(start: twoDaysAgo, end: nil, limit: 1)
+            endpoint: .sleep(start: start, end: end, limit: 25)
         )
-        // Filter out naps, return the most recent actual sleep
-        return collection.records.first { !$0.nap }
+        return collection.records
+    }
+
+    func fetchWorkouts(start: Date, end: Date) async throws -> [WorkoutRecord] {
+        let collection: WorkoutCollection = try await get(
+            endpoint: .workout(start: start, end: end, limit: 25)
+        )
+        return collection.records
     }
 
     // MARK: - Private
@@ -71,6 +88,42 @@ actor WhoopAPIClient {
 
     private var twoDaysAgo: Date {
         Calendar.current.date(byAdding: .day, value: -2, to: Date())!
+    }
+
+    private var sevenDaysAgo: Date {
+        Calendar.current.date(byAdding: .day, value: -7, to: Date())!
+    }
+
+    private var startOfToday: Date {
+        Calendar.current.startOfDay(for: Date())
+    }
+
+    private func getURL<T: Decodable>(_ url: URL) async throws -> T {
+        let token = try await authManager.validAccessToken()
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+
+        let data: Data
+        let response: URLResponse
+
+        do {
+            (data, response) = try await session.data(for: request)
+        } catch {
+            throw WhoopAPIError.networkError(error)
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+            throw WhoopAPIError.httpError(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 0, message: "Request failed")
+        }
+
+        do {
+            return try JSONDecoder.whoopDecoder.decode(T.self, from: data)
+        } catch {
+            throw WhoopAPIError.decodingError(error)
+        }
     }
 
     private func get<T: Decodable>(endpoint: WhoopEndpoint) async throws -> T {
@@ -111,6 +164,7 @@ actor WhoopAPIClient {
         do {
             return try JSONDecoder.whoopDecoder.decode(T.self, from: data)
         } catch {
+            logger.error("Decode error on \(endpoint.path): \(error.localizedDescription)")
             throw WhoopAPIError.decodingError(error)
         }
     }

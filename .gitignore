@@ -26,7 +26,12 @@ AuthProxy/node_modules/
 AuthProxy/.wrangler/
 AuthProxy/dist/
 
-# Secrets
+# Secrets & Local Config
 .env
 .env.local
 *.secret
+Secrets.xcconfig
+CLAUDE.md
+
+# Debug logs
+*.log

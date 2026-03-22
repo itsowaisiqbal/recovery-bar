@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleDisplayName</key>
-    <string>WHOOP Menubar</string>
+    <string>RecoveryBar</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -28,5 +28,7 @@
     <string></string>
     <key>NSPrincipalClass</key>
     <string>NSApplication</string>
+    <key>WhoopClientID</key>
+    <string>$(WHOOP_CLIENT_ID)</string>
 </dict>
 </plist>

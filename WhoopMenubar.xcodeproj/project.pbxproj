@@ -1,11 +1,9 @@
 // !$*UTF8*$!
 {
 	archiveVersion = 1;
-	classes = {
-	};
+	classes = {};
 	objectVersion = 56;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		AE76640D7CAB124882913836 /* WhoopMenubarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E961B6B3D05F9D1292C20725 /* WhoopMenubarApp.swift */; };
 		D78D4EA819E3D6131E92B522 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6397FEC957A40C2FFDDF5 /* AppState.swift */; };
@@ -19,19 +17,19 @@
 		F610139DC087A1F488EDA6C3 /* Cycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB864CE4E5CB390FF52EF48 /* Cycle.swift */; };
 		933189378BDE0041F56E4E67 /* Sleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73326B95ABB0298973FABA /* Sleep.swift */; };
 		2A4DB6FF7EAAC5D11C9495BA /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6E8ACD5A7B557AB10CF23C /* Profile.swift */; };
+		61D394FBC29932CAFF8D680E /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD0B54F3F5F20500DDA1B4C /* Workout.swift */; };
+		CEA1FD5BF1C93DFF0397005D /* BodyMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290C574BB966A4DD5A33FC55 /* BodyMeasurement.swift */; };
 		826BE30F47C271ECC3A3350E /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C210B3F9FDC942F9B6A7704D /* MenuBarView.swift */; };
 		C030388ACEAD6EC949E7915B /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB182CB8095AADE0AB8C81 /* PopoverView.swift */; };
-		A0D1B74F7AF16D00F11BF1EC /* RecoveryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDAD796FB3D61D2B2C3706 /* RecoveryCard.swift */; };
-		244FD240A6F486BB4B996EF3 /* StrainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6E943229564912A4035EE7 /* StrainCard.swift */; };
-		C41DEFD7B1FDA6707D985410 /* SleepCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7355B832CD94BE6DBE009656 /* SleepCard.swift */; };
 		C76CF81ABFC3C37D56B7AAA1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B77F5B270FBFC9720C6C88 /* SettingsView.swift */; };
 		B609B525B9A8108CEE222EE1 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D2EEF4FB5F33B19CDBBE2 /* SignInView.swift */; };
+		72AF1FD5049BD9AE31863D75 /* WhoopComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B687C02CE6D506560D0CEDC3 /* WhoopComponents.swift */; };
 		8201912D1B1C4FBB7E6D0A1A /* DataSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931BC6D3E8D43B173877ECAE /* DataSyncService.swift */; };
 		AF2736EB4BB7D6AFECA8321D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA598DF8F6BB0151C846605 /* NotificationService.swift */; };
 		C28BC041145B91ED85E7ADA6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911B7C71C4EC3A3575C813F /* Constants.swift */; };
 		A96CBBC06753213A3553AE60 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A430BF50F68AA38BC11312A2 /* Extensions.swift */; };
+		99812033B8BD7CDC0C7E876A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC3340C45202B29152467289 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		E961B6B3D05F9D1292C20725 /* WhoopMenubarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WhoopMenubarApp.swift"; sourceTree = "<group>"; };
 		CDF6397FEC957A40C2FFDDF5 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppState.swift"; sourceTree = "<group>"; };
@@ -45,13 +43,14 @@
 		ECB864CE4E5CB390FF52EF48 /* Cycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cycle.swift"; sourceTree = "<group>"; };
 		9F73326B95ABB0298973FABA /* Sleep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sleep.swift"; sourceTree = "<group>"; };
 		CF6E8ACD5A7B557AB10CF23C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile.swift"; sourceTree = "<group>"; };
+		FCD0B54F3F5F20500DDA1B4C /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Workout.swift"; sourceTree = "<group>"; };
+		290C574BB966A4DD5A33FC55 /* BodyMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BodyMeasurement.swift"; sourceTree = "<group>"; };
 		C210B3F9FDC942F9B6A7704D /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MenuBarView.swift"; sourceTree = "<group>"; };
 		4CAB182CB8095AADE0AB8C81 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PopoverView.swift"; sourceTree = "<group>"; };
-		E1FDAD796FB3D61D2B2C3706 /* RecoveryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecoveryCard.swift"; sourceTree = "<group>"; };
-		2E6E943229564912A4035EE7 /* StrainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StrainCard.swift"; sourceTree = "<group>"; };
-		7355B832CD94BE6DBE009656 /* SleepCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SleepCard.swift"; sourceTree = "<group>"; };
 		81B77F5B270FBFC9720C6C88 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView.swift"; sourceTree = "<group>"; };
 		E71D2EEF4FB5F33B19CDBBE2 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignInView.swift"; sourceTree = "<group>"; };
+		B1B2C3D4E5F6A7B8C9D0E1F6 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Secrets.xcconfig"; sourceTree = SOURCE_ROOT; };
+		B687C02CE6D506560D0CEDC3 /* WhoopComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WhoopComponents.swift"; sourceTree = "<group>"; };
 		931BC6D3E8D43B173877ECAE /* DataSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSyncService.swift"; sourceTree = "<group>"; };
 		0BA598DF8F6BB0151C846605 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationService.swift"; sourceTree = "<group>"; };
 		C911B7C71C4EC3A3575C813F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants.swift"; sourceTree = "<group>"; };
@@ -59,18 +58,11 @@
 		A97C29AD63741CF438998CE6 /* WhoopMenubar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhoopMenubar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE49C1F5BAF5DEC5C2A662E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
 		4852157653A4706FFB56C63F /* WhoopMenubar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WhoopMenubar.entitlements"; sourceTree = "<group>"; };
+		CC3340C45202B29152467289 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
 /* Begin PBXFrameworksBuildPhase section */
-		3133018B3F085785A01A7536 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+		3133018B3F085785A01A7536 = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXFrameworksBuildPhase section */
-
 /* Begin PBXGroup section */
 		FE910D29D648D8F2EA669AEF /* App */ = {
 			isa = PBXGroup;
@@ -109,6 +101,8 @@
 				ECB864CE4E5CB390FF52EF48 /* Cycle.swift */,
 				9F73326B95ABB0298973FABA /* Sleep.swift */,
 				CF6E8ACD5A7B557AB10CF23C /* Profile.swift */,
+				FCD0B54F3F5F20500DDA1B4C /* Workout.swift */,
+				290C574BB966A4DD5A33FC55 /* BodyMeasurement.swift */,
 			);
 			path = "Models";
 			sourceTree = "<group>";
@@ -118,11 +112,9 @@
 			children = (
 				C210B3F9FDC942F9B6A7704D /* MenuBarView.swift */,
 				4CAB182CB8095AADE0AB8C81 /* PopoverView.swift */,
-				E1FDAD796FB3D61D2B2C3706 /* RecoveryCard.swift */,
-				2E6E943229564912A4035EE7 /* StrainCard.swift */,
-				7355B832CD94BE6DBE009656 /* SleepCard.swift */,
 				81B77F5B270FBFC9720C6C88 /* SettingsView.swift */,
 				E71D2EEF4FB5F33B19CDBBE2 /* SignInView.swift */,
+				B687C02CE6D506560D0CEDC3 /* WhoopComponents.swift */,
 			);
 			path = "Views";
 			sourceTree = "<group>";
@@ -145,17 +137,6 @@
 			path = "Utilities";
 			sourceTree = "<group>";
 		};
-		9CF43B31E8845D861542A38E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				3B9928AE3BE4B70877769555 /* Recovery.swift */,
-				ECB864CE4E5CB390FF52EF48 /* Cycle.swift */,
-				9F73326B95ABB0298973FABA /* Sleep.swift */,
-				CF6E8ACD5A7B557AB10CF23C /* Profile.swift */,
-			);
-			path = "Models";
-			sourceTree = "<group>";
-		};
 		D2553A7ED56BB6FA7D4ED2BF /* WhoopMenubar */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +147,7 @@
 				564EAF51B7DD4639ADD9B985 /* Services */,
 				94EC979C78A1C9E483FAC308 /* Utilities */,
 				BE49C1F5BAF5DEC5C2A662E6 /* Info.plist */,
+				CC3340C45202B29152467289 /* Assets.xcassets */,
 				4852157653A4706FFB56C63F /* WhoopMenubar.entitlements */,
 			);
 			path = "WhoopMenubar";
@@ -196,57 +178,14 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
-
 /* Begin PBXNativeTarget section */
-		42AEFBAE01D2DFD981F7DA7D /* WhoopMenubar */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 210C36C6289F9B5EE230C602 /* Build configuration list for PBXNativeTarget "WhoopMenubar" */;
-			buildPhases = (
-				946BC7B5EBB022D9D8478A18 /* Sources */,
-				3133018B3F085785A01A7536 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "WhoopMenubar";
-			productName = "WhoopMenubar";
-			productReference = A97C29AD63741CF438998CE6 /* WhoopMenubar.app */;
-			productType = "com.apple.product-type.application";
-		};
+		42AEFBAE01D2DFD981F7DA7D = { isa = PBXNativeTarget; buildConfigurationList = 210C36C6289F9B5EE230C602; buildPhases = (1C2F847B7FBDF93B0F7B276B,946BC7B5EBB022D9D8478A18,3133018B3F085785A01A7536,); buildRules = (); dependencies = (); name = "WhoopMenubar"; productName = "WhoopMenubar"; productReference = A97C29AD63741CF438998CE6; productType = "com.apple.product-type.application"; };
 /* End PBXNativeTarget section */
-
 /* Begin PBXProject section */
-		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
-			};
-			buildConfigurationList = 6EBC3EC1F32488E30AF9876B /* Build configuration list for PBXProject "WhoopMenubar" */;
-			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-			);
-			mainGroup = 5928955287B8089ED2177128;
-			productRefGroup = BF7A2D27A78D590BDEF15AF2 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				42AEFBAE01D2DFD981F7DA7D /* WhoopMenubar */,
-			);
-		};
+		46F86FAA6BBF9AC94A7E4595 = { isa = PBXProject; attributes = { BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 1530; LastUpgradeCheck = 1530; }; buildConfigurationList = 6EBC3EC1F32488E30AF9876B; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en,Base,); mainGroup = 5928955287B8089ED2177128; productRefGroup = BF7A2D27A78D590BDEF15AF2; projectDirPath = ""; projectRoot = ""; targets = (42AEFBAE01D2DFD981F7DA7D,); };
 /* End PBXProject section */
-
 /* Begin PBXSourcesBuildPhase section */
-		946BC7B5EBB022D9D8478A18 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+		946BC7B5EBB022D9D8478A18 = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
 				AE76640D7CAB124882913836 /* WhoopMenubarApp.swift in Sources */,
 				D78D4EA819E3D6131E92B522 /* AppState.swift in Sources */,
 				3CEA99EB7FAD878E1FC030A5 /* AuthManager.swift in Sources */,
@@ -259,138 +198,32 @@
 				F610139DC087A1F488EDA6C3 /* Cycle.swift in Sources */,
 				933189378BDE0041F56E4E67 /* Sleep.swift in Sources */,
 				2A4DB6FF7EAAC5D11C9495BA /* Profile.swift in Sources */,
+				61D394FBC29932CAFF8D680E /* Workout.swift in Sources */,
+				CEA1FD5BF1C93DFF0397005D /* BodyMeasurement.swift in Sources */,
 				826BE30F47C271ECC3A3350E /* MenuBarView.swift in Sources */,
 				C030388ACEAD6EC949E7915B /* PopoverView.swift in Sources */,
-				A0D1B74F7AF16D00F11BF1EC /* RecoveryCard.swift in Sources */,
-				244FD240A6F486BB4B996EF3 /* StrainCard.swift in Sources */,
-				C41DEFD7B1FDA6707D985410 /* SleepCard.swift in Sources */,
 				C76CF81ABFC3C37D56B7AAA1 /* SettingsView.swift in Sources */,
 				B609B525B9A8108CEE222EE1 /* SignInView.swift in Sources */,
+				72AF1FD5049BD9AE31863D75 /* WhoopComponents.swift in Sources */,
 				8201912D1B1C4FBB7E6D0A1A /* DataSyncService.swift in Sources */,
 				AF2736EB4BB7D6AFECA8321D /* NotificationService.swift in Sources */,
 				C28BC041145B91ED85E7ADA6 /* Constants.swift in Sources */,
 				A96CBBC06753213A3553AE60 /* Extensions.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+			); runOnlyForDeploymentPostprocessing = 0; };
 /* End PBXSourcesBuildPhase section */
-
+/* Begin PBXResourcesBuildPhase section */
+		1C2F847B7FBDF93B0F7B276B = { isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (99812033B8BD7CDC0C7E876A,); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
 /* Begin XCBuildConfiguration section */
-		A3FA7BC046E62B1245F73497 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		E635DC0A16885DF2F7BE774B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
-			};
-			name = Release;
-		};
-		EA519AEBFC56C3FABDB22367 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "WhoopMenubar/Info.plist";
-				INFOPLIST_KEY_LSUIElement = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.itsowaisiqbal.whoop-menubar";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		80BB3E01927863D718CAEC94 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "WhoopMenubar/Info.plist";
-				INFOPLIST_KEY_LSUIElement = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.itsowaisiqbal.whoop-menubar";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
+		A3FA7BC046E62B1245F73497 = { isa = XCBuildConfiguration; baseConfigurationReference = B1B2C3D4E5F6A7B8C9D0E1F6 /* Secrets.xcconfig */; buildSettings = { ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ANALYZER_NONNULL = YES; CLANG_CXX_LANGUAGE_STANDARD = "gnu++20"; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_STRICT_OBJC_MSGSEND = YES; ENABLE_TESTABILITY = YES; GCC_DYNAMIC_NO_PIC = NO; GCC_OPTIMIZATION_LEVEL = 0; GCC_PREPROCESSOR_DEFINITIONS = ("DEBUG=1","$(inherited)",); MACOSX_DEPLOYMENT_TARGET = 14.0; MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE; ONLY_ACTIVE_ARCH = YES; SDKROOT = macosx; SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG"; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+		E635DC0A16885DF2F7BE774B = { isa = XCBuildConfiguration; baseConfigurationReference = B1B2C3D4E5F6A7B8C9D0E1F6 /* Secrets.xcconfig */; buildSettings = { ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ANALYZER_NONNULL = YES; CLANG_CXX_LANGUAGE_STANDARD = "gnu++20"; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; ENABLE_NS_ASSERTIONS = NO; ENABLE_STRICT_OBJC_MSGSEND = YES; MACOSX_DEPLOYMENT_TARGET = 14.0; MTL_ENABLE_DEBUG_INFO = NO; SDKROOT = macosx; SWIFT_COMPILATION_MODE = wholemodule; }; name = Release; };
+		EA519AEBFC56C3FABDB22367 = { isa = XCBuildConfiguration; buildSettings = { CODE_SIGN_IDENTITY = "-"; CODE_SIGN_STYLE = Manual; COMBINE_HIDPI_IMAGES = YES; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_FILE = "WhoopMenubar/Info.plist"; INFOPLIST_KEY_LSUIElement = YES; INFOPLIST_KEY_NSHumanReadableCopyright = ""; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)","@executable_path/../Frameworks",); MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = "com.itsowaisiqbal.whoop-menubar"; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 5.0; }; name = Debug; };
+		80BB3E01927863D718CAEC94 = { isa = XCBuildConfiguration; buildSettings = { CODE_SIGN_IDENTITY = "-"; CODE_SIGN_STYLE = Manual; COMBINE_HIDPI_IMAGES = YES; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_FILE = "WhoopMenubar/Info.plist"; INFOPLIST_KEY_LSUIElement = YES; INFOPLIST_KEY_NSHumanReadableCopyright = ""; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)","@executable_path/../Frameworks",); MARKETING_VERSION = 1.0.0; PRODUCT_BUNDLE_IDENTIFIER = "com.itsowaisiqbal.whoop-menubar"; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 5.0; }; name = Release; };
 /* End XCBuildConfiguration section */
-
 /* Begin XCConfigurationList section */
-		6EBC3EC1F32488E30AF9876B /* Build configuration list for PBXProject "WhoopMenubar" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A3FA7BC046E62B1245F73497 /* Debug */,
-				E635DC0A16885DF2F7BE774B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		210C36C6289F9B5EE230C602 /* Build configuration list for PBXNativeTarget "WhoopMenubar" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EA519AEBFC56C3FABDB22367 /* Debug */,
-				80BB3E01927863D718CAEC94 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
+		6EBC3EC1F32488E30AF9876B = { isa = XCConfigurationList; buildConfigurations = (A3FA7BC046E62B1245F73497,E635DC0A16885DF2F7BE774B,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		210C36C6289F9B5EE230C602 = { isa = XCConfigurationList; buildConfigurations = (EA519AEBFC56C3FABDB22367,80BB3E01927863D718CAEC94,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
 /* End XCConfigurationList section */
-
 	};
-	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+	rootObject = 46F86FAA6BBF9AC94A7E4595;
 }

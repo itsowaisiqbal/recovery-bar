@@ -110,30 +110,23 @@ extension Int {
 // MARK: - TimeInterval Formatting
 
 extension TimeInterval {
-    /// Format milliseconds as sleep duration (e.g., "7h 30m")
+    /// Format milliseconds as duration (e.g., "7:30") matching WHOOP app style
     var sleepDurationFormatted: String {
         let totalMinutes = Int(self / 1_000 / 60)
         let hours = totalMinutes / 60
         let minutes = totalMinutes % 60
-        if hours > 0 {
-            return "\(hours)h \(minutes)m"
-        }
-        return "\(minutes)m"
+        return "\(hours):\(String(format: "%02d", minutes))"
     }
 }
 
 // MARK: - String Extensions
 
 extension String {
-    /// Generate a cryptographically random string of given length
+    /// Generate a cryptographically random string using SecRandomCopyBytes
     static func randomState(length: Int = Constants.OAuth.stateLength) -> String {
-        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        var result = ""
-        for _ in 0..<length {
-            let randomIndex = Int.random(in: 0..<characters.count)
-            let char = characters[characters.index(characters.startIndex, offsetBy: randomIndex)]
-            result.append(char)
-        }
-        return result
+        let characters = Array("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+        var bytes = [UInt8](repeating: 0, count: length)
+        _ = SecRandomCopyBytes(kSecRandomDefault, length, &bytes)
+        return String(bytes.map { characters[Int($0) % characters.count] })
     }
 }

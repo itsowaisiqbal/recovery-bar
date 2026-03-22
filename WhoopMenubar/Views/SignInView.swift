@@ -4,47 +4,48 @@ struct SignInView: View {
     @EnvironmentObject var appState: AppState
 
     var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "heart.circle.fill")
-                .font(.system(size: 48))
-                .foregroundStyle(.green)
-
-            Text("WHOOP Menubar")
-                .font(.headline)
-
-            Text("View your recovery, strain, and sleep data right from the menu bar.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+        VStack(spacing: 20) {
+            Spacer()
 
             if case .error(let message) = appState.authManager.state {
                 Text(message)
-                    .font(.caption)
-                    .foregroundStyle(.red)
+                    .font(.system(size: 10, weight: .medium))
+                    .foregroundStyle(Constants.Brand.recoveryRed)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal)
+                    .padding(.horizontal, 8)
             }
 
             Button(action: {
-                Task {
-                    await appState.authManager.signIn()
-                }
+                Task { await appState.authManager.signIn() }
             }) {
-                HStack {
+                HStack(spacing: 6) {
                     if appState.authManager.state == .signingIn {
                         ProgressView()
                             .controlSize(.small)
+                    } else {
+                        Text("SIGN IN WITH")
+                            .font(.system(size: 11, weight: .bold))
+                            .tracking(1.5)
+
+                        Image("WhoopWordmark")
+                            .resizable()
+                            .renderingMode(.template)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 11)
+                            .foregroundStyle(.primary)
                     }
-                    Text(appState.authManager.state == .signingIn ? "Signing in..." : "Sign in with WHOOP")
                 }
                 .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .foregroundStyle(.primary)
+                .modifier(InteractiveGlassBackground(cornerRadius: 8))
             }
-            .buttonStyle(.borderedProminent)
-            .tint(.green)
+            .buttonStyle(.plain)
             .disabled(appState.authManager.state == .signingIn)
-            .controlSize(.large)
+
+            Spacer()
         }
-        .padding(24)
-        .frame(width: 280)
+        .padding(.horizontal, 24)
+        .frame(width: WhoopSpacing.popoverWidth, height: 120)
     }
 }

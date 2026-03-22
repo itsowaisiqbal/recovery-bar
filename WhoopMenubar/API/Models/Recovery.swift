@@ -7,7 +7,7 @@ struct RecoveryCollection: Codable, Sendable {
 
 struct RecoveryRecord: Codable, Sendable, Identifiable, Equatable {
     let cycleId: Int
-    let sleepId: Int
+    let sleepId: String
     let userId: Int
     let createdAt: Date
     let updatedAt: Date

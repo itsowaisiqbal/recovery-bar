@@ -6,7 +6,7 @@ struct SleepCollection: Codable, Sendable {
 }
 
 struct SleepRecord: Codable, Sendable, Identifiable, Equatable {
-    let id: Int
+    let id: String
     let userId: Int
     let createdAt: Date
     let updatedAt: Date

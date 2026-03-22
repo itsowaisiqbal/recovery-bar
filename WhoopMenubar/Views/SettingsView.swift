@@ -1,94 +1,74 @@
 import SwiftUI
+import ServiceManagement
 
 struct SettingsView: View {
     @EnvironmentObject var appState: AppState
-    @State private var saveError: String?
-    @State private var localClientID: String = ""
-    @State private var localClientSecret: String = ""
+    @Binding var isShowing: Bool
+    @State private var launchAtLogin = SMAppService.mainApp.status == .enabled
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
+            // Header
             HStack {
-                Text("Settings")
-                    .font(.headline)
+                Button(action: { isShowing = false }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 10, weight: .semibold))
+                        Text("Back")
+                            .font(.system(size: 11, weight: .medium))
+                    }
+                    .foregroundStyle(Constants.Brand.teal)
+                }
+                .buttonStyle(.plain)
+
                 Spacer()
+
+                Text("SETTINGS")
+                    .font(.system(size: 10, weight: .bold))
+                    .foregroundStyle(.secondary)
+                    .tracking(1.5)
+
+                Spacer()
+                Text("Back").font(.system(size: 11)).hidden()
             }
-
-            Divider()
-
-            // Auth Mode
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Authentication")
-                    .font(.subheadline.bold())
-
-                HStack {
-                    ForEach(AuthMode.allCases, id: \.self) { mode in
-                        Button(action: {
-                            appState.authManager.authMode = mode
-                        }) {
-                            Text(mode.rawValue)
-                                .font(.caption)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 4)
-                                .background(
-                                    appState.authManager.authMode == mode
-                                        ? Color.accentColor.opacity(0.2)
-                                        : Color.clear
-                                )
-                                .cornerRadius(4)
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-
-                if appState.authManager.authMode == .userCredentials {
-                    VStack(alignment: .leading, spacing: 6) {
-                        TextField("Client ID", text: $localClientID)
-                            .textFieldStyle(.roundedBorder)
-                            .font(.caption)
-
-                        SecureField("Client Secret", text: $localClientSecret)
-                            .textFieldStyle(.roundedBorder)
-                            .font(.caption)
-
-                        if let error = saveError {
-                            Text(error)
-                                .font(.caption2)
-                                .foregroundStyle(.red)
-                        }
-
-                        Button("Save Credentials") {
-                            appState.authManager.userClientID = localClientID
-                            appState.authManager.userClientSecret = localClientSecret
-                            do {
-                                try appState.authManager.saveUserCredentials()
-                                saveError = nil
-                            } catch {
-                                saveError = error.localizedDescription
-                            }
-                        }
-                        .buttonStyle(.bordered)
-                        .controlSize(.small)
-                    }
-                }
-            }
-
-            Divider()
 
             // Account
             if let profile = appState.profile {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Account")
-                        .font(.subheadline.bold())
+                GlassCard {
+                    SectionHeader(title: "ACCOUNT")
                     Text(profile.displayName)
-                        .font(.caption)
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(.primary)
                     Text(profile.email)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.system(size: 11))
+                        .foregroundStyle(.tertiary)
                 }
             }
 
-            Divider()
+            // Preferences
+            GlassCard {
+                SectionHeader(title: "PREFERENCES")
+
+                Toggle(isOn: $launchAtLogin) {
+                    Text("Start at Login")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundStyle(.primary)
+                }
+                .toggleStyle(.switch)
+                .controlSize(.small)
+                .tint(Constants.Brand.teal)
+                .onChange(of: launchAtLogin) { _, newValue in
+                    do {
+                        if newValue {
+                            try SMAppService.mainApp.register()
+                        } else {
+                            try SMAppService.mainApp.unregister()
+                        }
+                    } catch {
+                        launchAtLogin = !newValue
+                    }
+                }
+            }
 
             // Actions
             HStack {
@@ -97,6 +77,7 @@ struct SettingsView: View {
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
+                .tint(Constants.Brand.recoveryRed)
 
                 Spacer()
 
@@ -105,13 +86,10 @@ struct SettingsView: View {
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
+                .tint(.secondary)
             }
         }
-        .padding(16)
-        .frame(width: 280)
-        .onAppear {
-            localClientID = appState.authManager.userClientID
-            localClientSecret = appState.authManager.userClientSecret
-        }
+        .padding(WhoopSpacing.outerPadding)
+        .frame(width: WhoopSpacing.popoverWidth)
     }
 }

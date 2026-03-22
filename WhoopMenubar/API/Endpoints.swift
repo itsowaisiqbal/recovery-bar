@@ -5,6 +5,7 @@ enum WhoopEndpoint {
     case cycles(start: Date?, end: Date?, limit: Int?)
     case recovery(start: Date?, end: Date?, limit: Int?)
     case sleep(start: Date?, end: Date?, limit: Int?)
+    case workout(start: Date?, end: Date?, limit: Int?)
 
     var path: String {
         switch self {
@@ -16,6 +17,8 @@ enum WhoopEndpoint {
             return "/recovery"
         case .sleep:
             return "/activity/sleep"
+        case .workout:
+            return "/activity/workout"
         }
     }
 
@@ -29,7 +32,8 @@ enum WhoopEndpoint {
 
         case .cycles(let start, let end, let limit),
              .recovery(let start, let end, let limit),
-             .sleep(let start, let end, let limit):
+             .sleep(let start, let end, let limit),
+             .workout(let start, let end, let limit):
 
             var items: [URLQueryItem] = []
 

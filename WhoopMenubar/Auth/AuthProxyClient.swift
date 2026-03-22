@@ -1,4 +1,7 @@
 import Foundation
+import os
+
+private let logger = Logger(subsystem: "com.itsowaisiqbal.whoop-menubar", category: "Auth")
 
 enum AuthProxyError: LocalizedError {
     case invalidResponse
@@ -81,12 +84,15 @@ actor AuthProxyClient {
     ) async throws -> TokenResponse {
         let url = URL(string: Constants.API.tokenURL)!
 
+        let trimmedClientID = clientID.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedSecret = clientSecret.trimmingCharacters(in: .whitespacesAndNewlines)
+
         let body: [String: String] = [
             "grant_type": "authorization_code",
             "code": code,
             "redirect_uri": redirectURI,
-            "client_id": clientID,
-            "client_secret": clientSecret
+            "client_id": trimmedClientID,
+            "client_secret": trimmedSecret
         ]
 
         return try await postFormEncoded(url: url, body: body)
@@ -100,11 +106,14 @@ actor AuthProxyClient {
     ) async throws -> TokenResponse {
         let url = URL(string: Constants.API.tokenURL)!
 
+        let trimmedClientID = clientID.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedSecret = clientSecret.trimmingCharacters(in: .whitespacesAndNewlines)
+
         let body: [String: String] = [
             "grant_type": "refresh_token",
             "refresh_token": refreshToken,
-            "client_id": clientID,
-            "client_secret": clientSecret,
+            "client_id": trimmedClientID,
+            "client_secret": trimmedSecret,
             "scope": "offline"
         ]
 
@@ -154,8 +163,9 @@ actor AuthProxyClient {
             if let errorResponse = try? JSONDecoder().decode(AuthProxyErrorResponse.self, from: data) {
                 message = errorResponse.error
             } else {
-                message = String(data: data, encoding: .utf8) ?? "Unknown error"
+                message = "HTTP \(httpResponse.statusCode)"
             }
+            logger.error("Token request failed: HTTP \(httpResponse.statusCode)")
             throw AuthProxyError.httpError(statusCode: httpResponse.statusCode, message: message)
         }
 

@@ -21,6 +21,8 @@ enum KeychainError: LocalizedError {
     }
 }
 
+/// Token storage that uses file-based storage in DEBUG (avoids Keychain prompts on rebuild)
+/// and real Keychain in RELEASE builds.
 struct KeychainStore: Sendable {
     private let service: String
 
@@ -28,12 +30,50 @@ struct KeychainStore: Sendable {
         self.service = service
     }
 
-    // MARK: - Public API
+    // MARK: - Storage Backend
+
+    #if DEBUG
+    // File-based storage for development — no Keychain prompts on rebuild
+    private var storageDir: URL {
+        let dir = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent(".whoop-menubar-dev", isDirectory: true)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        return dir
+    }
+
+    private func fileURL(forKey key: String) -> URL {
+        storageDir.appendingPathComponent(key)
+    }
 
     func save(_ value: String, forKey key: String) throws {
-        let data = Data(value.utf8)
+        let url = fileURL(forKey: key)
+        try Data(value.utf8).write(to: url, options: .atomicWrite)
+        // Restrict file permissions to owner-only (0600)
+        try FileManager.default.setAttributes(
+            [.posixPermissions: 0o600],
+            ofItemAtPath: url.path
+        )
+    }
 
-        // Delete existing item first
+    func read(forKey key: String) -> String? {
+        let url = fileURL(forKey: key)
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        return String(data: data, encoding: .utf8)
+    }
+
+    func delete(forKey key: String) throws {
+        let url = fileURL(forKey: key)
+        try? FileManager.default.removeItem(at: url)
+    }
+
+    func deleteAll() throws {
+        try? FileManager.default.removeItem(at: storageDir)
+    }
+
+    #else
+    // Real Keychain for RELEASE builds
+    func save(_ value: String, forKey key: String) throws {
+        let data = Data(value.utf8)
         try? delete(forKey: key)
 
         let query: [String: Any] = [
@@ -41,7 +81,7 @@ struct KeychainStore: Sendable {
             kSecAttrService as String: service,
             kSecAttrAccount as String: key,
             kSecValueData as String: data,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
         ]
 
         let status = SecItemAdd(query as CFDictionary, nil)
@@ -67,7 +107,6 @@ struct KeychainStore: Sendable {
               let value = String(data: data, encoding: .utf8) else {
             return nil
         }
-
         return value
     }
 
@@ -95,6 +134,7 @@ struct KeychainStore: Sendable {
             throw KeychainError.deleteFailed(status)
         }
     }
+    #endif
 
     // MARK: - Token Helpers
 
@@ -107,43 +147,16 @@ struct KeychainStore: Sendable {
         try save(expiryString, forKey: Constants.Keychain.tokenExpiryKey)
     }
 
-    var accessToken: String? {
-        read(forKey: Constants.Keychain.accessTokenKey)
-    }
-
-    var refreshToken: String? {
-        read(forKey: Constants.Keychain.refreshTokenKey)
-    }
+    var accessToken: String? { read(forKey: Constants.Keychain.accessTokenKey) }
+    var refreshToken: String? { read(forKey: Constants.Keychain.refreshTokenKey) }
 
     var isTokenExpired: Bool {
         guard let expiryString = read(forKey: Constants.Keychain.tokenExpiryKey),
               let expiry = ISO8601DateFormatter().date(from: expiryString) else {
             return true
         }
-        // Consider expired 60 seconds early to avoid edge cases
-        return Date() >= expiry.addingTimeInterval(-60)
+        return Date() >= expiry.addingTimeInterval(-300)
     }
 
-    var hasTokens: Bool {
-        accessToken != nil && refreshToken != nil
-    }
-
-    // MARK: - User Credentials (Fallback Mode)
-
-    func saveUserCredentials(clientID: String, clientSecret: String) throws {
-        try save(clientID, forKey: Constants.Keychain.clientIDKey)
-        try save(clientSecret, forKey: Constants.Keychain.clientSecretKey)
-    }
-
-    var userClientID: String? {
-        read(forKey: Constants.Keychain.clientIDKey)
-    }
-
-    var userClientSecret: String? {
-        read(forKey: Constants.Keychain.clientSecretKey)
-    }
-
-    var hasUserCredentials: Bool {
-        userClientID != nil && userClientSecret != nil
-    }
+    var hasTokens: Bool { accessToken != nil && refreshToken != nil }
 }
