@@ -1,0 +1,7 @@
+name = "whoop-auth-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-03-20"
+
+# Secrets (set via `wrangler secret put`):
+# - WHOOP_CLIENT_ID
+# - WHOOP_CLIENT_SECRET

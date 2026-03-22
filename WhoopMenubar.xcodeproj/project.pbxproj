@@ -1,0 +1,396 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AE76640D7CAB124882913836 /* WhoopMenubarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E961B6B3D05F9D1292C20725 /* WhoopMenubarApp.swift */; };
+		D78D4EA819E3D6131E92B522 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDF6397FEC957A40C2FFDDF5 /* AppState.swift */; };
+		3CEA99EB7FAD878E1FC030A5 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E327ED92919E3A07029CD47 /* AuthManager.swift */; };
+		654F63A656E85661DD4DD5E6 /* AuthProxyClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72E953D056C56DE1928EE83 /* AuthProxyClient.swift */; };
+		17D675B1750CD3764FF87372 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4814785154A735E3A68486CA /* KeychainStore.swift */; };
+		2D087F3F7C8FE7BCA7B774C2 /* LocalAuthServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0BE69543EB45423A79A3AA5 /* LocalAuthServer.swift */; };
+		FB94C56EF08EEDE493A55EB7 /* WhoopAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFA94264D2F37CCD2F8DD7F /* WhoopAPIClient.swift */; };
+		D79BE378A407C1615434B9FF /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35179134EC8C2D67DEB60D75 /* Endpoints.swift */; };
+		FDAB17A7A83CB7BE7DE4B173 /* Recovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9928AE3BE4B70877769555 /* Recovery.swift */; };
+		F610139DC087A1F488EDA6C3 /* Cycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB864CE4E5CB390FF52EF48 /* Cycle.swift */; };
+		933189378BDE0041F56E4E67 /* Sleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F73326B95ABB0298973FABA /* Sleep.swift */; };
+		2A4DB6FF7EAAC5D11C9495BA /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6E8ACD5A7B557AB10CF23C /* Profile.swift */; };
+		826BE30F47C271ECC3A3350E /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C210B3F9FDC942F9B6A7704D /* MenuBarView.swift */; };
+		C030388ACEAD6EC949E7915B /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB182CB8095AADE0AB8C81 /* PopoverView.swift */; };
+		A0D1B74F7AF16D00F11BF1EC /* RecoveryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FDAD796FB3D61D2B2C3706 /* RecoveryCard.swift */; };
+		244FD240A6F486BB4B996EF3 /* StrainCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6E943229564912A4035EE7 /* StrainCard.swift */; };
+		C41DEFD7B1FDA6707D985410 /* SleepCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7355B832CD94BE6DBE009656 /* SleepCard.swift */; };
+		C76CF81ABFC3C37D56B7AAA1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B77F5B270FBFC9720C6C88 /* SettingsView.swift */; };
+		B609B525B9A8108CEE222EE1 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D2EEF4FB5F33B19CDBBE2 /* SignInView.swift */; };
+		8201912D1B1C4FBB7E6D0A1A /* DataSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931BC6D3E8D43B173877ECAE /* DataSyncService.swift */; };
+		AF2736EB4BB7D6AFECA8321D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA598DF8F6BB0151C846605 /* NotificationService.swift */; };
+		C28BC041145B91ED85E7ADA6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C911B7C71C4EC3A3575C813F /* Constants.swift */; };
+		A96CBBC06753213A3553AE60 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A430BF50F68AA38BC11312A2 /* Extensions.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E961B6B3D05F9D1292C20725 /* WhoopMenubarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WhoopMenubarApp.swift"; sourceTree = "<group>"; };
+		CDF6397FEC957A40C2FFDDF5 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppState.swift"; sourceTree = "<group>"; };
+		2E327ED92919E3A07029CD47 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthManager.swift"; sourceTree = "<group>"; };
+		F72E953D056C56DE1928EE83 /* AuthProxyClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthProxyClient.swift"; sourceTree = "<group>"; };
+		4814785154A735E3A68486CA /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeychainStore.swift"; sourceTree = "<group>"; };
+		A0BE69543EB45423A79A3AA5 /* LocalAuthServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalAuthServer.swift"; sourceTree = "<group>"; };
+		8DFA94264D2F37CCD2F8DD7F /* WhoopAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WhoopAPIClient.swift"; sourceTree = "<group>"; };
+		35179134EC8C2D67DEB60D75 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Endpoints.swift"; sourceTree = "<group>"; };
+		3B9928AE3BE4B70877769555 /* Recovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recovery.swift"; sourceTree = "<group>"; };
+		ECB864CE4E5CB390FF52EF48 /* Cycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cycle.swift"; sourceTree = "<group>"; };
+		9F73326B95ABB0298973FABA /* Sleep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sleep.swift"; sourceTree = "<group>"; };
+		CF6E8ACD5A7B557AB10CF23C /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Profile.swift"; sourceTree = "<group>"; };
+		C210B3F9FDC942F9B6A7704D /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MenuBarView.swift"; sourceTree = "<group>"; };
+		4CAB182CB8095AADE0AB8C81 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PopoverView.swift"; sourceTree = "<group>"; };
+		E1FDAD796FB3D61D2B2C3706 /* RecoveryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecoveryCard.swift"; sourceTree = "<group>"; };
+		2E6E943229564912A4035EE7 /* StrainCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StrainCard.swift"; sourceTree = "<group>"; };
+		7355B832CD94BE6DBE009656 /* SleepCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SleepCard.swift"; sourceTree = "<group>"; };
+		81B77F5B270FBFC9720C6C88 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView.swift"; sourceTree = "<group>"; };
+		E71D2EEF4FB5F33B19CDBBE2 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SignInView.swift"; sourceTree = "<group>"; };
+		931BC6D3E8D43B173877ECAE /* DataSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSyncService.swift"; sourceTree = "<group>"; };
+		0BA598DF8F6BB0151C846605 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationService.swift"; sourceTree = "<group>"; };
+		C911B7C71C4EC3A3575C813F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants.swift"; sourceTree = "<group>"; };
+		A430BF50F68AA38BC11312A2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions.swift"; sourceTree = "<group>"; };
+		A97C29AD63741CF438998CE6 /* WhoopMenubar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WhoopMenubar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE49C1F5BAF5DEC5C2A662E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
+		4852157653A4706FFB56C63F /* WhoopMenubar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WhoopMenubar.entitlements"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3133018B3F085785A01A7536 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FE910D29D648D8F2EA669AEF /* App */ = {
+			isa = PBXGroup;
+			children = (
+				E961B6B3D05F9D1292C20725 /* WhoopMenubarApp.swift */,
+				CDF6397FEC957A40C2FFDDF5 /* AppState.swift */,
+			);
+			path = "App";
+			sourceTree = "<group>";
+		};
+		5FA2C5F77DB14AB8F5DBCE4C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				2E327ED92919E3A07029CD47 /* AuthManager.swift */,
+				F72E953D056C56DE1928EE83 /* AuthProxyClient.swift */,
+				4814785154A735E3A68486CA /* KeychainStore.swift */,
+				A0BE69543EB45423A79A3AA5 /* LocalAuthServer.swift */,
+			);
+			path = "Auth";
+			sourceTree = "<group>";
+		};
+		0ABF0D43F4BD39BBC70701CA /* API */ = {
+			isa = PBXGroup;
+			children = (
+				8DFA94264D2F37CCD2F8DD7F /* WhoopAPIClient.swift */,
+				35179134EC8C2D67DEB60D75 /* Endpoints.swift */,
+				9CF43B31E8845D861542A38E /* Models */,
+			);
+			path = "API";
+			sourceTree = "<group>";
+		};
+		9CF43B31E8845D861542A38E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3B9928AE3BE4B70877769555 /* Recovery.swift */,
+				ECB864CE4E5CB390FF52EF48 /* Cycle.swift */,
+				9F73326B95ABB0298973FABA /* Sleep.swift */,
+				CF6E8ACD5A7B557AB10CF23C /* Profile.swift */,
+			);
+			path = "Models";
+			sourceTree = "<group>";
+		};
+		C454586A1F4E28C340BDC1AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C210B3F9FDC942F9B6A7704D /* MenuBarView.swift */,
+				4CAB182CB8095AADE0AB8C81 /* PopoverView.swift */,
+				E1FDAD796FB3D61D2B2C3706 /* RecoveryCard.swift */,
+				2E6E943229564912A4035EE7 /* StrainCard.swift */,
+				7355B832CD94BE6DBE009656 /* SleepCard.swift */,
+				81B77F5B270FBFC9720C6C88 /* SettingsView.swift */,
+				E71D2EEF4FB5F33B19CDBBE2 /* SignInView.swift */,
+			);
+			path = "Views";
+			sourceTree = "<group>";
+		};
+		564EAF51B7DD4639ADD9B985 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				931BC6D3E8D43B173877ECAE /* DataSyncService.swift */,
+				0BA598DF8F6BB0151C846605 /* NotificationService.swift */,
+			);
+			path = "Services";
+			sourceTree = "<group>";
+		};
+		94EC979C78A1C9E483FAC308 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				C911B7C71C4EC3A3575C813F /* Constants.swift */,
+				A430BF50F68AA38BC11312A2 /* Extensions.swift */,
+			);
+			path = "Utilities";
+			sourceTree = "<group>";
+		};
+		9CF43B31E8845D861542A38E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3B9928AE3BE4B70877769555 /* Recovery.swift */,
+				ECB864CE4E5CB390FF52EF48 /* Cycle.swift */,
+				9F73326B95ABB0298973FABA /* Sleep.swift */,
+				CF6E8ACD5A7B557AB10CF23C /* Profile.swift */,
+			);
+			path = "Models";
+			sourceTree = "<group>";
+		};
+		D2553A7ED56BB6FA7D4ED2BF /* WhoopMenubar */ = {
+			isa = PBXGroup;
+			children = (
+				FE910D29D648D8F2EA669AEF /* App */,
+				5FA2C5F77DB14AB8F5DBCE4C /* Auth */,
+				0ABF0D43F4BD39BBC70701CA /* API */,
+				C454586A1F4E28C340BDC1AD /* Views */,
+				564EAF51B7DD4639ADD9B985 /* Services */,
+				94EC979C78A1C9E483FAC308 /* Utilities */,
+				BE49C1F5BAF5DEC5C2A662E6 /* Info.plist */,
+				4852157653A4706FFB56C63F /* WhoopMenubar.entitlements */,
+			);
+			path = "WhoopMenubar";
+			sourceTree = "<group>";
+		};
+		BF7A2D27A78D590BDEF15AF2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A97C29AD63741CF438998CE6 /* WhoopMenubar.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		175C932161BEBF3B8BB1F58C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5928955287B8089ED2177128 = {
+			isa = PBXGroup;
+			children = (
+				D2553A7ED56BB6FA7D4ED2BF /* WhoopMenubar */,
+				BF7A2D27A78D590BDEF15AF2 /* Products */,
+				175C932161BEBF3B8BB1F58C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42AEFBAE01D2DFD981F7DA7D /* WhoopMenubar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 210C36C6289F9B5EE230C602 /* Build configuration list for PBXNativeTarget "WhoopMenubar" */;
+			buildPhases = (
+				946BC7B5EBB022D9D8478A18 /* Sources */,
+				3133018B3F085785A01A7536 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WhoopMenubar";
+			productName = "WhoopMenubar";
+			productReference = A97C29AD63741CF438998CE6 /* WhoopMenubar.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+			};
+			buildConfigurationList = 6EBC3EC1F32488E30AF9876B /* Build configuration list for PBXProject "WhoopMenubar" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5928955287B8089ED2177128;
+			productRefGroup = BF7A2D27A78D590BDEF15AF2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42AEFBAE01D2DFD981F7DA7D /* WhoopMenubar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		946BC7B5EBB022D9D8478A18 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE76640D7CAB124882913836 /* WhoopMenubarApp.swift in Sources */,
+				D78D4EA819E3D6131E92B522 /* AppState.swift in Sources */,
+				3CEA99EB7FAD878E1FC030A5 /* AuthManager.swift in Sources */,
+				654F63A656E85661DD4DD5E6 /* AuthProxyClient.swift in Sources */,
+				17D675B1750CD3764FF87372 /* KeychainStore.swift in Sources */,
+				2D087F3F7C8FE7BCA7B774C2 /* LocalAuthServer.swift in Sources */,
+				FB94C56EF08EEDE493A55EB7 /* WhoopAPIClient.swift in Sources */,
+				D79BE378A407C1615434B9FF /* Endpoints.swift in Sources */,
+				FDAB17A7A83CB7BE7DE4B173 /* Recovery.swift in Sources */,
+				F610139DC087A1F488EDA6C3 /* Cycle.swift in Sources */,
+				933189378BDE0041F56E4E67 /* Sleep.swift in Sources */,
+				2A4DB6FF7EAAC5D11C9495BA /* Profile.swift in Sources */,
+				826BE30F47C271ECC3A3350E /* MenuBarView.swift in Sources */,
+				C030388ACEAD6EC949E7915B /* PopoverView.swift in Sources */,
+				A0D1B74F7AF16D00F11BF1EC /* RecoveryCard.swift in Sources */,
+				244FD240A6F486BB4B996EF3 /* StrainCard.swift in Sources */,
+				C41DEFD7B1FDA6707D985410 /* SleepCard.swift in Sources */,
+				C76CF81ABFC3C37D56B7AAA1 /* SettingsView.swift in Sources */,
+				B609B525B9A8108CEE222EE1 /* SignInView.swift in Sources */,
+				8201912D1B1C4FBB7E6D0A1A /* DataSyncService.swift in Sources */,
+				AF2736EB4BB7D6AFECA8321D /* NotificationService.swift in Sources */,
+				C28BC041145B91ED85E7ADA6 /* Constants.swift in Sources */,
+				A96CBBC06753213A3553AE60 /* Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A3FA7BC046E62B1245F73497 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E635DC0A16885DF2F7BE774B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		EA519AEBFC56C3FABDB22367 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WhoopMenubar/Info.plist";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.itsowaisiqbal.whoop-menubar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		80BB3E01927863D718CAEC94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "WhoopMenubar/Info.plist";
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.itsowaisiqbal.whoop-menubar";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6EBC3EC1F32488E30AF9876B /* Build configuration list for PBXProject "WhoopMenubar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A3FA7BC046E62B1245F73497 /* Debug */,
+				E635DC0A16885DF2F7BE774B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		210C36C6289F9B5EE230C602 /* Build configuration list for PBXNativeTarget "WhoopMenubar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA519AEBFC56C3FABDB22367 /* Debug */,
+				80BB3E01927863D718CAEC94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}
