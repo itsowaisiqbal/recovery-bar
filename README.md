@@ -58,6 +58,3 @@ MIT. See [LICENSE](LICENSE).
 <p align="center">
   <sub>Built by <a href="https://github.com/itsowaisiqbal">@itsowaisiqbal</a> · Not affiliated with or endorsed by WHOOP Inc.</sub>
 </p>
-<p align="center">
-  <img src=".github/wordmark.png" width="100" alt="WHOOP" />
-</p>
