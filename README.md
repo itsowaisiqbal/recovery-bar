@@ -5,7 +5,7 @@
 <h1 align="center">RecoveryBar</h1>
 
 <p align="center">
-  Your WHOOP recovery, strain, and sleep — always one click away in the macOS menu bar.
+  Your WHOOP recovery, strain, and sleep, always one click away in the macOS menu bar.
 </p>
 
 <p align="center">
@@ -22,13 +22,13 @@
 
 ## What it does
 
-RecoveryBar lives in your menu bar and shows your latest WHOOP data at a glance — no need to open your phone.
+RecoveryBar lives in your menu bar and shows your latest WHOOP data at a glance. No need to open your phone.
 
-- **Recovery** — score with color-coded zones (green/yellow/red), HRV, resting heart rate, SpO2, skin temp
-- **Strain** — daily strain gauge (0–21), calories burned, max & average heart rate
-- **Sleep** — hours slept vs. needed, sleep performance, efficiency, consistency, stage breakdown
-- **Activities** — today's workouts, sleep sessions, and naps
-- **Body** — height, weight, max heart rate
+- **Recovery** score with color-coded zones (green/yellow/red), HRV, resting heart rate, SpO2, skin temp
+- **Strain** daily gauge (0-21), calories burned, max & average heart rate
+- **Sleep** hours slept vs. needed, performance, efficiency, consistency, stage breakdown
+- **Activities** today's workouts, sleep sessions, and naps
+- **Body** height, weight, max heart rate
 
 Data refreshes automatically every 15 minutes. Click the menu bar icon anytime for the full picture.
 
@@ -36,7 +36,7 @@ Data refreshes automatically every 15 minutes. Click the menu bar icon anytime f
 
 1. Download **RecoveryBar.dmg** from the [latest release](https://github.com/itsowaisiqbal/recovery-bar/releases/latest)
 2. Open the DMG and drag **RecoveryBar** to Applications
-3. Launch RecoveryBar — it appears in your menu bar
+3. Launch RecoveryBar. It appears in your menu bar
 4. Click the icon and sign in with your WHOOP account
 
 That's it. Your data shows up after sign-in.
@@ -49,23 +49,9 @@ Your WHOOP credentials are handled entirely by WHOOP's own login page — Recove
 
 Full details: [PRIVACY.md](PRIVACY.md)
 
-## Building from source
-
-If you prefer to build it yourself:
-
-```bash
-git clone https://github.com/itsowaisiqbal/recovery-bar.git
-cd recovery-bar
-cp Secrets.xcconfig.template Secrets.xcconfig
-# Edit Secrets.xcconfig with your WHOOP Client ID
-open WhoopMenubar.xcodeproj
-```
-
-Requires Xcode 15+ and macOS 14.0+ SDK. Create a WHOOP developer app at [developer-dashboard.whoop.com](https://developer-dashboard.whoop.com) with redirect URI `http://localhost:8919/callback`.
-
 ## License
 
-MIT — see [LICENSE](LICENSE)
+MIT. See [LICENSE](LICENSE).
 
 ---
 
