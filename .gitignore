@@ -33,5 +33,9 @@ AuthProxy/dist/
 Secrets.xcconfig
 CLAUDE.md
 
+# Release artifacts
+*.dmg
+dmg_staging/
+
 # Debug logs
 *.log

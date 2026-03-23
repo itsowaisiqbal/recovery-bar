@@ -1,85 +1,77 @@
-# RecoveryBar
+<p align="center">
+  <img src=".github/app-icon.png" width="80" alt="RecoveryBar icon" />
+</p>
 
-A native macOS menu bar app that displays your WHOOP recovery, strain, and sleep data at a glance.
+<h1 align="center">RecoveryBar</h1>
 
-Built by [@itsowaisiqbal](https://github.com/itsowaisiqbal). Not affiliated with or endorsed by WHOOP Inc.
+<p align="center">
+  Your WHOOP recovery, strain, and sleep — always one click away in the macOS menu bar.
+</p>
 
-## Features
+<p align="center">
+  <a href="https://github.com/itsowaisiqbal/recovery-bar/releases/latest">
+    <img src="https://img.shields.io/github/v/release/itsowaisiqbal/recovery-bar?label=Download&style=for-the-badge" alt="Download latest release" />
+  </a>
+</p>
 
-- Recovery, strain, and sleep scores with radial progress rings
-- Sub-metrics (HRV, resting HR, SpO2, skin temp, calories, efficiency, etc.)
-- Today's activities (sleep, naps, workouts)
-- Body measurements (height, weight, max HR)
-- Liquid Glass UI on macOS 26+
-- "DATA BY WHOOP" attribution per brand guidelines
-- Secure OAuth via auth proxy (client_secret never touches the app)
-- Tokens stored in macOS Keychain (encrypted at rest)
-- Polls every 15 minutes (well within WHOOP rate limits)
+<p align="center">
+  macOS 14.0+ &nbsp;·&nbsp; Apple Silicon & Intel &nbsp;·&nbsp; Free & Open Source
+</p>
 
-## Setup
+---
 
-### 1. WHOOP Developer App
+## What it does
 
-1. Go to [developer-dashboard.whoop.com](https://developer-dashboard.whoop.com)
-2. Create a Team, then create an App
-3. Set **Redirect URI**: `http://localhost:8919/callback`
-4. Select all data scopes
-5. Note your **Client ID** and **Client Secret**
+RecoveryBar lives in your menu bar and shows your latest WHOOP data at a glance — no need to open your phone.
 
-### 2. Configure Client ID
+- **Recovery** — score with color-coded zones (green/yellow/red), HRV, resting heart rate, SpO2, skin temp
+- **Strain** — daily strain gauge (0–21), calories burned, max & average heart rate
+- **Sleep** — hours slept vs. needed, sleep performance, efficiency, consistency, stage breakdown
+- **Activities** — today's workouts, sleep sessions, and naps
+- **Body** — height, weight, max heart rate
 
-```bash
-cp Secrets.xcconfig.template Secrets.xcconfig
-```
+Data refreshes automatically every 15 minutes. Click the menu bar icon anytime for the full picture.
 
-Edit `Secrets.xcconfig` and add your Client ID from the WHOOP Developer Dashboard:
+## Install
 
-```
-WHOOP_CLIENT_ID = your-client-id-here
-```
+1. Download **RecoveryBar.dmg** from the [latest release](https://github.com/itsowaisiqbal/recovery-bar/releases/latest)
+2. Open the DMG and drag **RecoveryBar** to Applications
+3. Launch RecoveryBar — it appears in your menu bar
+4. Click the icon and sign in with your WHOOP account
 
-### 3. Build & Run
+That's it. Your data shows up after sign-in.
 
-Open `WhoopMenubar.xcodeproj` in Xcode 15+ and build. Requires macOS 14.0+.
-
-### 4. Auth Proxy (for contributors)
-
-The auth proxy holds the `client_secret` server-side. To deploy your own:
-
-```bash
-cd AuthProxy
-npm install
-npx wrangler secret put WHOOP_CLIENT_ID
-npx wrangler secret put WHOOP_CLIENT_SECRET
-npx wrangler secret put STATS_SECRET
-npx wrangler deploy
-```
-
-Update `Constants.swift` with your deployed worker URL.
-
-## Architecture
-
-```
-macOS App (Swift/SwiftUI)
-  ├── Menu bar icon (leaf)
-  ├── Sign in with WHOOP (OAuth)
-  ├── Fetches data directly from WHOOP API
-  └── Tokens in macOS Keychain
-
-Auth Proxy (Cloudflare Worker)
-  ├── POST /token — exchange auth code
-  ├── POST /refresh — refresh tokens
-  └── Holds client_secret (never in app)
-```
+> **Note**: macOS may show a security prompt on first launch since the app isn't notarized. Right-click the app → Open → Open to bypass it.
 
 ## Privacy
 
-See [PRIVACY.md](PRIVACY.md). No health data is stored on disk or sent to third parties.
+Your WHOOP credentials are handled entirely by WHOOP's own login page — RecoveryBar never sees your password. Auth tokens are stored in the macOS Keychain (encrypted at rest). No health data is written to disk or sent anywhere other than WHOOP's API.
 
-## Legal
+Full details: [PRIVACY.md](PRIVACY.md)
 
-WHOOP wordmark is property of WHOOP Inc., used per their Developer Brand Guidelines for required attribution.
+## Building from source
+
+If you prefer to build it yourself:
+
+```bash
+git clone https://github.com/itsowaisiqbal/recovery-bar.git
+cd recovery-bar
+cp Secrets.xcconfig.template Secrets.xcconfig
+# Edit Secrets.xcconfig with your WHOOP Client ID
+open WhoopMenubar.xcodeproj
+```
+
+Requires Xcode 15+ and macOS 14.0+ SDK. Create a WHOOP developer app at [developer-dashboard.whoop.com](https://developer-dashboard.whoop.com) with redirect URI `http://localhost:8919/callback`.
 
 ## License
 
 MIT — see [LICENSE](LICENSE)
+
+---
+
+<p align="center">
+  <sub>Built by <a href="https://github.com/itsowaisiqbal">@itsowaisiqbal</a> · Not affiliated with or endorsed by WHOOP Inc.</sub>
+</p>
+<p align="center">
+  <img src=".github/wordmark.png" width="100" alt="WHOOP" />
+</p>
