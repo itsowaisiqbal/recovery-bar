@@ -311,9 +311,10 @@ struct PopoverView: View {
                 HeaderButton(
                     icon: appState.isLoading ? nil : "arrow.clockwise",
                     isLoading: appState.isLoading,
-                    action: { Task { await appState.refresh() } }
+                    action: { Task { await appState.refresh(fullRefresh: true) } }
                 )
-                .disabled(appState.isLoading)
+                .disabled(appState.isLoading || !appState.canRefresh)
+                .opacity(appState.canRefresh ? 1.0 : 0.4)
             }
         }
     }

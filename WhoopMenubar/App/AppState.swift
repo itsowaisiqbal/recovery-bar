@@ -17,10 +17,14 @@ final class AppState: ObservableObject {
     @Published private(set) var lastUpdated: Date?
     @Published private(set) var isLoading = false
     @Published private(set) var error: String?
+    @Published private(set) var lastRefreshed: Date?
 
     let authManager: AuthManager
     private var apiClient: WhoopAPIClient?
     private var syncService: DataSyncService?
+    private var lastCycleId: Int?
+
+    private static let refreshCooldown: TimeInterval = 30
 
     // MARK: - Init
 
@@ -50,6 +54,17 @@ final class AppState: ObservableObject {
         return "\(score)%"
     }
 
+    var canRefresh: Bool {
+        guard let lastRefreshed else { return true }
+        return Date().timeIntervalSince(lastRefreshed) >= Self.refreshCooldown
+    }
+
+    var refreshCooldownRemaining: Int {
+        guard let lastRefreshed else { return 0 }
+        let elapsed = Date().timeIntervalSince(lastRefreshed)
+        return max(0, Int(ceil(Self.refreshCooldown - elapsed)))
+    }
+
     // MARK: - Actions
 
     func startSync() {
@@ -69,26 +84,37 @@ final class AppState: ObservableObject {
         apiClient = nil
     }
 
-    func refresh() async {
+    /// - Parameter fullRefresh: `true` for manual refresh (always fetches all data),
+    ///   `false` for timer polls (skips if cycle unchanged).
+    func refresh(fullRefresh: Bool = true) async {
         guard let apiClient = apiClient else { return }
+
+        // Cooldown: skip if refreshed recently (only for manual refreshes)
+        if fullRefresh && !canRefresh { return }
 
         isLoading = true
         error = nil
 
-        // Fetch the latest/current cycle (last 2 days to catch ongoing cycles)
         let twoDaysAgo = Calendar.current.date(byAdding: .day, value: -2, to: Date())!
+        let now = Date()
 
         do {
-            // Fetch latest cycle and recovery
-            let now = Date()
-            async let fetchedCycle = apiClient.fetchCycle(start: twoDaysAgo, end: now)
-            async let fetchedRecovery = apiClient.fetchRecovery(start: twoDaysAgo, end: now)
+            // Always fetch cycle first (1 API call)
+            let newCycle = try await apiClient.fetchCycle(start: twoDaysAgo, end: now)
 
-            let (newCycle, newRecovery) = try await (fetchedCycle, fetchedRecovery)
+            // Smart polling: skip remaining calls if cycle hasn't changed
+            if !fullRefresh, let newId = newCycle?.id, newId == lastCycleId {
+                isLoading = false
+                return
+            }
+
+            // Cycle changed or manual refresh — fetch everything
+            self.lastCycleId = newCycle?.id
             self.cycle = newCycle
+
+            let newRecovery = try await apiClient.fetchRecovery(start: twoDaysAgo, end: now)
             self.recovery = newRecovery
 
-            // Use the cycle's boundaries to fetch activities for the current cycle
             let cycleStart = newCycle?.start ?? twoDaysAgo
             let cycleEnd = newCycle?.end ?? Date()
 
@@ -97,19 +123,17 @@ final class AppState: ObservableObject {
 
             let (newSleeps, newWorkouts) = try await (fetchedSleeps, fetchedWorkouts)
 
-            // Sort chronologically (earliest first)
             let sortedSleeps = newSleeps.sorted { $0.start < $1.start }
             let sortedWorkouts = newWorkouts.sorted { $0.start < $1.start }
 
-            // Separate main sleep from naps
             self.sleep = sortedSleeps.first { !$0.nap }
             self.naps = sortedSleeps.filter { $0.nap }
 
-            // Store all workouts
             self.dayWorkouts = sortedWorkouts
             self.workout = sortedWorkouts.first
 
             self.lastUpdated = Date()
+            self.lastRefreshed = Date()
             self.error = nil
         } catch let apiError as WhoopAPIError {
             handleAPIError(apiError)

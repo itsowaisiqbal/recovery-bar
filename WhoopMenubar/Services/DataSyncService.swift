@@ -14,9 +14,9 @@ final class DataSyncService {
     func startPolling() {
         stopPolling()
 
-        // Fetch immediately on start
         pollingTask = Task {
-            await appState.refresh()
+            // Full refresh on first launch
+            await appState.refresh(fullRefresh: true)
             await appState.fetchProfile()
 
             while !Task.isCancelled {
@@ -24,7 +24,8 @@ final class DataSyncService {
 
                 guard !Task.isCancelled else { break }
 
-                await appState.refresh()
+                // Smart poll: skip if cycle hasn't changed
+                await appState.refresh(fullRefresh: false)
             }
         }
     }
