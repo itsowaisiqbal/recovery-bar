@@ -1,7 +1,7 @@
 import Foundation
 import os
 
-private let logger = Logger(subsystem: "com.itsowaisiqbal.whoop-menubar", category: "API")
+private let logger = Logger(subsystem: "com.itsowaisiqbal.recoverybar", category: "API")
 
 enum WhoopAPIError: LocalizedError {
     case unauthorized

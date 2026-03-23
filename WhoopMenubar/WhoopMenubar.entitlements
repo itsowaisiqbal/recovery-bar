@@ -10,7 +10,7 @@
     <true/>
     <key>keychain-access-groups</key>
     <array>
-        <string>$(AppIdentifierPrefix)com.itsowaisiqbal.whoop-menubar</string>
+        <string>$(AppIdentifierPrefix)com.itsowaisiqbal.recoverybar</string>
     </array>
 </dict>
 </plist>

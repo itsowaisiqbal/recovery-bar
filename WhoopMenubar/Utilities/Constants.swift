@@ -26,7 +26,7 @@ enum Constants {
 
     // MARK: - Keychain
     enum Keychain {
-        static let service = "com.itsowaisiqbal.whoop-menubar"
+        static let service = "com.itsowaisiqbal.recoverybar"
     }
 
     // MARK: - Polling

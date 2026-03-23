@@ -1,7 +1,7 @@
 import Foundation
 import os
 
-private let logger = Logger(subsystem: "com.itsowaisiqbal.whoop-menubar", category: "Auth")
+private let logger = Logger(subsystem: "com.itsowaisiqbal.recoverybar", category: "Auth")
 
 enum AuthProxyError: LocalizedError {
     case invalidResponse
