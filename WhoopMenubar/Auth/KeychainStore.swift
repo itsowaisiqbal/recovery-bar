@@ -6,6 +6,7 @@ enum KeychainError: LocalizedError {
     case readFailed(OSStatus)
     case deleteFailed(OSStatus)
     case unexpectedData
+    case encodingFailed
 
     var errorDescription: String? {
         switch self {
@@ -17,14 +18,24 @@ enum KeychainError: LocalizedError {
             return "Keychain delete failed: \(SecCopyErrorMessageString(status, nil) ?? "Unknown" as CFString)"
         case .unexpectedData:
             return "Unexpected data format in Keychain"
+        case .encodingFailed:
+            return "Failed to encode token data"
         }
     }
 }
 
-/// Token storage that uses file-based storage in DEBUG (avoids Keychain prompts on rebuild)
-/// and real Keychain in RELEASE builds.
+/// All tokens stored as a single Keychain entry to avoid multiple password prompts.
+private struct TokenBundle: Codable {
+    let accessToken: String
+    let refreshToken: String
+    let expiryDate: String
+}
+
+/// Token storage using a single Keychain item (one prompt max).
+/// DEBUG builds use file-based storage to avoid Keychain prompts on rebuild.
 struct KeychainStore: Sendable {
     private let service: String
+    private let tokenKey = "auth_tokens"
 
     init(service: String = Constants.Keychain.service) {
         self.service = service
@@ -41,29 +52,20 @@ struct KeychainStore: Sendable {
         return dir
     }
 
-    private func fileURL(forKey key: String) -> URL {
-        storageDir.appendingPathComponent(key)
+    private var tokenFileURL: URL {
+        storageDir.appendingPathComponent(tokenKey)
     }
 
-    func save(_ value: String, forKey key: String) throws {
-        let url = fileURL(forKey: key)
-        try Data(value.utf8).write(to: url, options: .atomicWrite)
-        // Restrict file permissions to owner-only (0600)
+    private func saveRaw(_ data: Data) throws {
+        try data.write(to: tokenFileURL, options: .atomicWrite)
         try FileManager.default.setAttributes(
             [.posixPermissions: 0o600],
-            ofItemAtPath: url.path
+            ofItemAtPath: tokenFileURL.path
         )
     }
 
-    func read(forKey key: String) -> String? {
-        let url = fileURL(forKey: key)
-        guard let data = try? Data(contentsOf: url) else { return nil }
-        return String(data: data, encoding: .utf8)
-    }
-
-    func delete(forKey key: String) throws {
-        let url = fileURL(forKey: key)
-        try? FileManager.default.removeItem(at: url)
+    private func readRaw() -> Data? {
+        try? Data(contentsOf: tokenFileURL)
     }
 
     func deleteAll() throws {
@@ -71,15 +73,20 @@ struct KeychainStore: Sendable {
     }
 
     #else
-    // Real Keychain for RELEASE builds
-    func save(_ value: String, forKey key: String) throws {
-        let data = Data(value.utf8)
-        try? delete(forKey: key)
+    // Real Keychain for RELEASE builds — single item, single prompt
+    private func saveRaw(_ data: Data) throws {
+        // Delete existing item first
+        let deleteQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: tokenKey
+        ]
+        SecItemDelete(deleteQuery as CFDictionary)
 
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccount as String: key,
+            kSecAttrAccount as String: tokenKey,
             kSecValueData as String: data,
             kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
         ]
@@ -90,11 +97,11 @@ struct KeychainStore: Sendable {
         }
     }
 
-    func read(forKey key: String) -> String? {
+    private func readRaw() -> Data? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccount as String: key,
+            kSecAttrAccount as String: tokenKey,
             kSecReturnData as String: true,
             kSecMatchLimit as String: kSecMatchLimitOne
         ]
@@ -102,25 +109,10 @@ struct KeychainStore: Sendable {
         var result: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &result)
 
-        guard status == errSecSuccess,
-              let data = result as? Data,
-              let value = String(data: data, encoding: .utf8) else {
+        guard status == errSecSuccess, let data = result as? Data else {
             return nil
         }
-        return value
-    }
-
-    func delete(forKey key: String) throws {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: service,
-            kSecAttrAccount as String: key
-        ]
-
-        let status = SecItemDelete(query as CFDictionary)
-        guard status == errSecSuccess || status == errSecItemNotFound else {
-            throw KeychainError.deleteFailed(status)
-        }
+        return data
     }
 
     func deleteAll() throws {
@@ -138,25 +130,38 @@ struct KeychainStore: Sendable {
 
     // MARK: - Token Helpers
 
-    func saveTokens(accessToken: String, refreshToken: String, expiresIn: Int) throws {
-        try save(accessToken, forKey: Constants.Keychain.accessTokenKey)
-        try save(refreshToken, forKey: Constants.Keychain.refreshTokenKey)
-
-        let expiryDate = Date().addingTimeInterval(TimeInterval(expiresIn))
-        let expiryString = ISO8601DateFormatter().string(from: expiryDate)
-        try save(expiryString, forKey: Constants.Keychain.tokenExpiryKey)
+    private func readBundle() -> TokenBundle? {
+        guard let data = readRaw() else { return nil }
+        return try? JSONDecoder().decode(TokenBundle.self, from: data)
     }
 
-    var accessToken: String? { read(forKey: Constants.Keychain.accessTokenKey) }
-    var refreshToken: String? { read(forKey: Constants.Keychain.refreshTokenKey) }
+    func saveTokens(accessToken: String, refreshToken: String, expiresIn: Int) throws {
+        let expiryDate = Date().addingTimeInterval(TimeInterval(expiresIn))
+        let expiryString = ISO8601DateFormatter().string(from: expiryDate)
+
+        let bundle = TokenBundle(
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            expiryDate: expiryString
+        )
+
+        guard let data = try? JSONEncoder().encode(bundle) else {
+            throw KeychainError.encodingFailed
+        }
+
+        try saveRaw(data)
+    }
+
+    var accessToken: String? { readBundle()?.accessToken }
+    var refreshToken: String? { readBundle()?.refreshToken }
 
     var isTokenExpired: Bool {
-        guard let expiryString = read(forKey: Constants.Keychain.tokenExpiryKey),
-              let expiry = ISO8601DateFormatter().date(from: expiryString) else {
+        guard let bundle = readBundle(),
+              let expiry = ISO8601DateFormatter().date(from: bundle.expiryDate) else {
             return true
         }
         return Date() >= expiry.addingTimeInterval(-300)
     }
 
-    var hasTokens: Bool { accessToken != nil && refreshToken != nil }
+    var hasTokens: Bool { readBundle() != nil }
 }

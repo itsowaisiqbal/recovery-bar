@@ -27,9 +27,6 @@ enum Constants {
     // MARK: - Keychain
     enum Keychain {
         static let service = "com.itsowaisiqbal.whoop-menubar"
-        static let accessTokenKey = "whoop_access_token"
-        static let refreshTokenKey = "whoop_refresh_token"
-        static let tokenExpiryKey = "whoop_token_expiry"
     }
 
     // MARK: - Polling
